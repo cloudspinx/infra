@@ -58,7 +58,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: images/atlantis
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64 #,linux/arm64
           push: true
           # tags: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_REPOSITORY }}/${{ env.IMAGE }}:${{ github.sha }}
           tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.IMAGE }}:${{ github.sha }}
