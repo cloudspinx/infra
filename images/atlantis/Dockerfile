@@ -3,9 +3,12 @@ FROM ghcr.io/runatlantis/atlantis:v0.38.0
 USER root
 
 # Tool Versions
-ARG OPENTOFU_VERSION=1.11.1   #https://github.com/opentofu/opentofu/releases
-ARG TERRAGRUNT_VERSION=0.96.0 #https://github.com/gruntwork-io/terragrunt/releases
-ARG VAULT_VERSION=1.21.1      #https://github.com/hashicorp/vault/releases
+# https://github.com/opentofu/opentofu/releases
+ARG OPENTOFU_VERSION=1.11.1
+# https://github.com/gruntwork-io/terragrunt/releases
+ARG TERRAGRUNT_VERSION=0.96.0
+# https://github.com/hashicorp/vault/releases
+ARG VAULT_VERSION=1.21.1
 
 # Install dependencies
 RUN apk add --no-cache \
