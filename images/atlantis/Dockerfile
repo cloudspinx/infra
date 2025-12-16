@@ -7,6 +7,8 @@ USER root
 ARG OPENTOFU_VERSION=1.11.1
 # https://github.com/gruntwork-io/terragrunt/releases
 ARG TERRAGRUNT_VERSION=0.96.0
+# https://github.com/transcend-io/terragrunt-atlantis-config/releases
+ARG TERRAGRUNT_ATLANTIS_CONFIG_VERSION=1.21.1
 # https://github.com/hashicorp/vault/releases
 ARG VAULT_VERSION=1.21.1
 
@@ -32,6 +34,10 @@ RUN curl -Lo /tmp/tofu.zip https://github.com/opentofu/opentofu/releases/downloa
 # Install Terragrunt
 RUN curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v${TERRAGRUNT_VERSION}/terragrunt_linux_amd64 \
   && chmod +x /usr/local/bin/terragrunt
+
+# Install Terragrunt Atlantis Config
+RUN curl -Lo /usr/local/bin/terragrunt-atlantis-config https://github.com/transcend-io/terragrunt-atlantis-config/releases/download/v${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}/terragrunt-atlantis-config_${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}_linux_amd64 \
+  && chmod +x /usr/local/bin/terragrunt-atlantis-config
 
 # Install Vault
 RUN curl -Lo /tmp/vault.zip https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip \
