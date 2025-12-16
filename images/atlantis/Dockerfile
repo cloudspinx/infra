@@ -25,7 +25,7 @@ RUN apk add --no-cache \
 
 # Install OpenTofu
 RUN curl -Lo /tmp/tofu.zip https://github.com/opentofu/opentofu/releases/download/v${OPENTOFU_VERSION}/tofu_${OPENTOFU_VERSION}_linux_amd64.zip \
-  && unzip /tmp/tofu.zip -d /usr/local/bin/ \
+  && unzip -o /tmp/tofu.zip -d /usr/local/bin/ \
   && rm /tmp/tofu.zip \
   && chmod +x /usr/local/bin/tofu
 
@@ -35,7 +35,7 @@ RUN curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terragrun
 
 # Install Vault
 RUN curl -Lo /tmp/vault.zip https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip \
-  && unzip /tmp/vault.zip -d /usr/local/bin/ \
+  && unzip -o /tmp/vault.zip -d /usr/local/bin/ \
   && rm /tmp/vault.zip \
   && chmod +x /usr/local/bin/vault
 
