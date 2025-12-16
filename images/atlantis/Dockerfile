@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 ghcr.io/runatlantis/atlantis:v0.38.0
+FROM ghcr.io/runatlantis/atlantis:v0.38.0
 
 USER root
 
@@ -11,6 +11,9 @@ ARG TERRAGRUNT_VERSION=0.96.0
 ARG TERRAGRUNT_ATLANTIS_CONFIG_VERSION=1.21.1
 # https://github.com/hashicorp/vault/releases
 ARG VAULT_VERSION=1.21.1
+
+# Automatic platform ARG (amd64, arm64, etc.)
+ARG TARGETARCH
 
 # Install dependencies
 RUN apk add --no-cache \
@@ -26,21 +29,21 @@ RUN apk add --no-cache \
   libc6-compat
 
 # Install OpenTofu
-RUN curl -Lo /tmp/tofu.zip https://github.com/opentofu/opentofu/releases/download/v${OPENTOFU_VERSION}/tofu_${OPENTOFU_VERSION}_linux_amd64.zip \
+RUN curl -Lo /tmp/tofu.zip https://github.com/opentofu/opentofu/releases/download/v${OPENTOFU_VERSION}/tofu_${OPENTOFU_VERSION}_linux_${TARGETARCH}.zip \
   && unzip -o /tmp/tofu.zip -d /usr/local/bin/ \
   && rm /tmp/tofu.zip \
   && chmod +x /usr/local/bin/tofu
 
 # Install Terragrunt
-RUN curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v${TERRAGRUNT_VERSION}/terragrunt_linux_amd64 \
+RUN curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v${TERRAGRUNT_VERSION}/terragrunt_linux_${TARGETARCH} \
   && chmod +x /usr/local/bin/terragrunt
 
 # Install Terragrunt Atlantis Config
-RUN curl -Lo /usr/local/bin/terragrunt-atlantis-config https://github.com/transcend-io/terragrunt-atlantis-config/releases/download/v${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}/terragrunt-atlantis-config_${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}_linux_amd64 \
+RUN curl -Lo /usr/local/bin/terragrunt-atlantis-config https://github.com/transcend-io/terragrunt-atlantis-config/releases/download/v${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}/terragrunt-atlantis-config_${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}_linux_${TARGETARCH} \
   && chmod +x /usr/local/bin/terragrunt-atlantis-config
 
 # Install Vault
-RUN curl -Lo /tmp/vault.zip https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip \
+RUN curl -Lo /tmp/vault.zip https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_${TARGETARCH}.zip \
   && unzip -o /tmp/vault.zip -d /usr/local/bin/ \
   && rm /tmp/vault.zip \
   && chmod +x /usr/local/bin/vault
